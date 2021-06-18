@@ -1,4 +1,7 @@
-./data.db
+api/data.db
 Mailer.js
-node_modules/
-package-lock.json
+api/node_modules/
+api/package-lock.json
+client/node_modules/
+client/package-lock.json
+client/readme.md
