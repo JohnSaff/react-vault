@@ -59,6 +59,8 @@ function AddFundsCard(props){
           // instead of a catch() block so that we don't swallow
           // exceptions from actual bugs in components.
           .catch(err=> console.log)
+          props.onChange()
+
         }
         props.handler()
       }

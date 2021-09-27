@@ -8,9 +8,9 @@ RUN mkdir /app/api
 
 WORKDIR /app/api
 
-COPY ./api/package*.json ./
+COPY ./package*.json ./
 RUN npm install
-COPY ./api .
+COPY . .
 
 WORKDIR /app
 RUN mkdir /app/client

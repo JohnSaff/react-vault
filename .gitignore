@@ -1,7 +1,7 @@
 Dockerfile
 startVault.sh
 docker-compose.yaml
-DS_Store
+.DS_Store
 
 api/data.db
 api/Mailer.js
