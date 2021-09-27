@@ -21,7 +21,6 @@ app.use(function(req,res,next) {
 
 
 app.get('/', (req,res)=>{
-    console.log("i'm doing something")
     res.send({})
 })
 
@@ -58,19 +57,14 @@ app.post('/', express.json(), async (req,res)=>{
 })
 
 app.post('/addfunds',express.json(),async (req,res)=>{
-    console.log('--------------------------------------------------------')
-    if(!req.body.amount){
+    if(req.body.amount === undefined || req.body.amount === null){
         res.status(400).send({})
         return
     }
     const amount = req.body.amount
     const user = await User.findOne({where:{email:req.body.user.email}})
     var balance = parseFloat(user.balance)
-    console.log('before')
-    console.log(balance)
     balance += parseFloat(amount)
-    console.log('after')
-    console.log(balance)
     await user.update({balance})
     res.send({})
 })
@@ -93,6 +87,11 @@ app.post('/pay', express.json(),async (req,res)=>{
         res.status(404).send({})
         return
     }
+    if(payer.email === payee.email){
+        await TransactionHistory.create({from: req.body.recipient, to: payer.email, amount: req.body.amount, UserId: payer.id})
+        res.status(200).send({})
+        return
+    }
     payerBalance = parseFloat(payer.balance)
     await payer.update({balance: payerBalance - parseFloat(req.body.amount)})
     payeeBalance = parseFloat(payee.balance)
@@ -103,7 +102,6 @@ app.post('/pay', express.json(),async (req,res)=>{
 
 app.post('/addfriend', express.json(),async (req,res) =>{
     if(!req.body.email){
-        console.log('400')
         res.status(400).send({})
         return
     }

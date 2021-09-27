@@ -4,14 +4,27 @@ ENV NODE_ENV=production
 
 RUN apt-get update && apt-get install -y net-tools
 RUN mkdir /app
+RUN mkdir /app/api
+
+WORKDIR /app/api
+
+COPY ./api/package*.json ./
+RUN npm install
+COPY ./api .
 
 WORKDIR /app
+RUN mkdir /app/client
 
-COPY Gemfile* .
-RUN bundle install
+WORKDIR /app/client
 
-COPY ./lib .
+COPY ./client/package*.json ./
+RUN npm install
 
-EXPOSE 4567
+COPY ./client .
 
-CMD ["ruby","server.rb"]
+EXPOSE 3000
+
+WORKDIR /app
+COPY startVault.sh .
+
+CMD ./startVault.sh
