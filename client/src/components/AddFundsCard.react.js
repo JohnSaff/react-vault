@@ -13,12 +13,16 @@ const styles={
     container:{
         position: 'absolute',
         top: '0',
-        height: '100%',
+        height: '100vh',
         backgroundColor: 'rgba(0,0,0,0.5)',
         width: '100%',
-        marginLeft: '-16px'
+        marginLeft: '-16px',
     },
     card:{
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        right: '0',
         width: '70%',
         marginLeft: 'auto',
         marginRight: 'auto',
@@ -29,7 +33,8 @@ const styles={
         marginTop: '60%',
         display: 'grid',
         gridGap: '8px',
-        padding: '8px'
+        padding: '8px',
+        zIndex: '5'
     }
 }
 
@@ -58,15 +63,21 @@ function AddFundsCard(props){
         props.handler()
       }
 
+      const closeModal = () =>{
+          props.handler()
+      }
+
     return(
-        <div style={styles.container}>
-            <div style={styles.card}>
+        <div>
+            <div style={styles.card} >
                 Add Funds
                 <form onSubmit={addFunds}>
                     <label>Amount </label>
                 <input type='number' step='0.01' id='addFunds' value={amount} onChange={e => setAmount(e.target.value)} /><br/>
                 <input style={styles.button} type = 'submit' value='Submit' onClick={props.handler}/>
                 </form>
+            </div>
+            <div style={styles.container} onClick={closeModal}>
             </div>
         </div>
     )

@@ -30,7 +30,6 @@ const styles = {
 
     useEffect(()=>{
       props.handler(true)
-      console.log('doing the thing')
     },[showPaymentCard])
 
     return (

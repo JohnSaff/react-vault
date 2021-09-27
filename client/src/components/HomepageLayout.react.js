@@ -63,12 +63,16 @@ function HomepageLayout(props) {
             // exceptions from actual bugs in components.
             .catch(err=> console.log)
         }
-        setRefresh(false)
-    },[user,refresh,showAddFundsCard])
+    },[user,refresh,showAddFundsCard,balance])
 
     const indexes = [...Array(friends.length).keys()]
     const items = indexes.map(index =>
-        <FriendCard name={friends[index].name} email={friends[index].email} user={user} key={index} handler={setRefresh}/>
+        <FriendCard
+            name={friends[index].name}
+            email={friends[index].email}
+            user={user}
+            key={index}
+            handler={setRefresh}/>
         )
 
     return (
@@ -96,7 +100,7 @@ function HomepageLayout(props) {
             <div>
                 {items.length ? items : <NoFriendsCard handler={props.handler} />}
             </div>
-            {showAddFundsCard && <AddFundsCard user={user} handler={setShowAddFundsCard}/>}
+            {showAddFundsCard && <AddFundsCard user={user} handler={setShowAddFundsCard} onChange={setRefresh} />}
         </div>
         ) : isLoading? <div>Loading....</div> : <LoginButton/>
     )
