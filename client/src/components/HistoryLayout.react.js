@@ -14,7 +14,6 @@ const styles = {
 }
 
 function HistoryLayout () {
-    //const history = [{from:'j.c.safrany@gmail.com',to:'kaye@kaye.com',amount:'12.24'},{from:'kaye@kaye.com',to:'j.c.safrany@gmail.com',amount:'13.40'}]
     const { user, isAuthenticated, isLoading } = useAuth0();
     const [history, setHistory] = useState([])
     useEffect(()=>{
